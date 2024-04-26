@@ -48,7 +48,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.ProcessingEnvironment; // こいつが実際の処理を行ってそう
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -144,6 +144,7 @@ public class PublicApiAnnotationProcessor extends AbstractProcessor {
         return false;
     }
 
+    // ここ
     private void generateSignature() throws IOException {
         // only verify on request
         if (!Boolean.getBoolean(VERIFY_TOGGLE)) {
@@ -157,7 +158,7 @@ public class PublicApiAnnotationProcessor extends AbstractProcessor {
             }
             String newSignature = sb.toString();
 
-            // Write new signature
+            // Write new signature ここで実際に処理
             final FileObject file =
                     processingEnv.getFiler().createResource(CLASS_OUTPUT, "", GENERATED_SIGNATURE_DESTINATION);
             try (BufferedWriter writer = new BufferedWriter(file.openWriter())) {
